@@ -1,24 +1,23 @@
-import React from "react";
-import "./App.css";
+import React from 'react'
+import './App.css'
 
-function App() {
+// Redux
+import { Provider } from 'react-redux'
+import { store } from './components/React-Redux/redux'
+
+import RepositoriesList from './components/React-Redux/RepositoriesList'
+
+const App: React.FC = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Provider store={store}>
+        <div>
+          <h1>Search For a NPM Package</h1>
+          <RepositoriesList />
+        </div>
+      </Provider>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
