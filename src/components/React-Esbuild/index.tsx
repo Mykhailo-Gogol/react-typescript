@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import * as esbuild from 'esbuild-wasm'
 import { unpkgPathPlugin } from '../../plugins/unpkg-path-plugin'
+import { fetchPlugin } from '../../plugins/fetch-plugin'
 
 const JBook: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('')
@@ -20,7 +21,7 @@ const JBook: React.FC = () => {
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
-      plugins: [unpkgPathPlugin()],
+      plugins: [unpkgPathPlugin(), fetchPlugin(inputValue)],
       define: {
         'process.env.NODE_ENV': '"production"',
         global: 'window',
