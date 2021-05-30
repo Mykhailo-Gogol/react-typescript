@@ -9,11 +9,12 @@ import { store } from './redux'
 
 const ReactRedux: React.FC = () => {
   return (
-    <div>
+    <section>
       <Provider store={store}>
+        <h1>NPM Packages</h1>
         <RepositoriesList />
       </Provider>
-    </div>
+    </section>
   )
 }
 

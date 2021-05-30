@@ -22,13 +22,13 @@ class Login extends Component {
 
 const Profile: React.FC = (): React.ReactElement => {
   return (
-    <section>
+    <>
       <AuthContext.Consumer>
         {({ isAuth }: IContext) => (
           <h1>{!isAuth ? 'Please log in' : 'You are logged in'}</h1>
         )}
       </AuthContext.Consumer>
-    </section>
+    </>
   )
 }
 
@@ -50,8 +50,8 @@ class Context extends Component {
     return (
       <AuthContext.Provider value={context}>
         <section>
-          <Login />
           <Profile />
+          <Login />
         </section>
       </AuthContext.Provider>
     )

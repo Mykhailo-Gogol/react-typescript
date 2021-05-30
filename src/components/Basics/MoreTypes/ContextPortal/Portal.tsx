@@ -16,13 +16,13 @@ const Portal: React.FC<React.ReactNode> = ({ children }) => {
 
 const PortalSection: React.FC = () => {
   return (
-    <section>
+    <div>
       <Portal>
         <section>
           <h1>Portal</h1>
         </section>
       </Portal>
-    </section>
+    </div>
   )
 }
 
