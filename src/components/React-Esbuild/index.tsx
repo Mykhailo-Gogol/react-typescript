@@ -41,7 +41,8 @@ const JBook: React.FC = () => {
   }
 
   return (
-    <div>
+    <section>
+      <h1>Compile</h1>
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
@@ -50,7 +51,7 @@ const JBook: React.FC = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
-    </div>
+    </section>
   )
 }
 
