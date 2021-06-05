@@ -1,92 +1,92 @@
-import React, { useState } from "react";
+import React, { useState } from 'react'
 
 interface IState {
-  inputText: string;
-  textareaText: string;
-  selectText: string;
+  inputText: string
+  textareaText: string
+  selectText: string
   stringshowData: {
-    name: string;
-    text: string;
-    position: string;
-  };
+    name: string
+    text: string
+    position: string
+  }
 }
 
 type TPosition = {
-  id: string;
-  value: string;
-  title: string;
-};
+  id: string
+  value: string
+  title: string
+}
 
 const POSITIONS: Array<TPosition> = [
-  { id: "fd", value: "Front-end Developer", title: "Front-end Developer" },
-  { id: "bd", value: "Back-end Developer", title: "Back-end Developer" },
-  { id: "dd", value: "Designer", title: "Designer" },
-];
+  { id: 'fd', value: 'Front-end Developer', title: 'Front-end Developer' },
+  { id: 'bd', value: 'Back-end Developer', title: 'Back-end Developer' },
+  { id: 'dd', value: 'Designer', title: 'Designer' },
+]
 
-const DEFAULT_SELECT_VALUE = POSITIONS[0].value;
+const DEFAULT_SELECT_VALUE = POSITIONS[0].value
 
 const innitialState = {
-  inputText: "",
-  textareaText: "",
+  inputText: '',
+  textareaText: '',
   selectText: DEFAULT_SELECT_VALUE,
   stringshowData: {
-    name: "",
-    text: "",
-    position: "",
+    name: '',
+    text: '',
+    position: '',
   },
-};
+}
 
 type TShowText = {
-  name: string;
-  descr: string;
-  position: string;
-};
+  name: string
+  descr: string
+  position: string
+}
 
 const innitialShowText = {
-  name: "",
-  descr: "",
-  position: "",
-};
+  name: '',
+  descr: '',
+  position: '',
+}
 
-const styles: React.CSSProperties = { paddingBottom: "10px" };
+const styles: React.CSSProperties = { paddingBottom: '10px' }
 
 const TypeOfElements = () => {
-  const [state, setState] = useState<IState>(innitialState);
-  const [showText, setShowText] = useState<TShowText>(innitialShowText);
+  const [state, setState] = useState<IState>(innitialState)
+  const [showText, setShowText] = useState<TShowText>(innitialShowText)
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
       target: { value: inputText },
-    } = event;
+    } = event
 
-    setState((state) => ({ ...state, inputText }));
-  };
+    setState((state) => ({ ...state, inputText }))
+  }
 
   const handleTextareaChange = (
     event: React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     const {
       target: { value: textareaText },
-    } = event;
+    } = event
 
-    setState((state) => ({ ...state, textareaText }));
-  };
+    setState((state) => ({ ...state, textareaText }))
+  }
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const {
       target: { value: selectText },
-    } = event;
+    } = event
 
-    setState((state) => ({ ...state, selectText }));
-  };
+    setState((state) => ({ ...state, selectText }))
+  }
 
   const handleShow = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+    event.preventDefault()
 
-    const { inputText, textareaText, selectText } = state;
+    const { inputText, textareaText, selectText } = state
 
-    setShowText({ name: inputText, descr: textareaText, position: selectText });
-  };
+    setShowText({ name: inputText, descr: textareaText, position: selectText })
+  }
 
   return (
     <section style={styles}>
@@ -104,7 +104,7 @@ const TypeOfElements = () => {
           <textarea
             value={state.textareaText}
             name=""
-            id=""
+            // id=""
             cols={25}
             rows={15}
             onChange={handleTextareaChange}
@@ -115,12 +115,12 @@ const TypeOfElements = () => {
           <span>Select:</span>
           <select
             name=""
-            id=""
+            // id=""
             value={state.selectText}
             onChange={handleSelectChange}
           >
             {POSITIONS.map(({ id, value, title }) => (
-              <option key={id} value={value}>
+              <option key={title} value={value}>
                 {title}
               </option>
             ))}
@@ -135,9 +135,9 @@ const TypeOfElements = () => {
       <p>{showText.descr}</p>
       <p>{showText.position}</p>
     </section>
-  );
-};
+  )
+}
 
-export default TypeOfElements;
+export default TypeOfElements
 
 // Working
