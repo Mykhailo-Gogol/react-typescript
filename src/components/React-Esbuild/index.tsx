@@ -1,16 +1,20 @@
+import * as esbuild from 'esbuild-wasm'
 import React, { useState, useEffect, useRef } from 'react'
 
-import * as esbuild from 'esbuild-wasm'
 import { unpkgPathPlugin } from '../../plugins/unpkg-path-plugin'
 import { fetchPlugin } from '../../plugins/fetch-plugin'
 
+import 'react-notifications/lib/notifications.css'
+
 const JBook: React.FC = () => {
-  const ref = useRef<any>()
+  const outputRef = useRef<any>()
+  const iframeRef = useRef<any>()
+
   const [input, setInput] = useState('')
   const [code, setCode] = useState('')
 
   const startService = async () => {
-    ref.current = await esbuild.startService({
+    outputRef.current = await esbuild.startService({
       worker: true,
       wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm',
     })
@@ -20,11 +24,11 @@ const JBook: React.FC = () => {
   }, [])
 
   const onClick = async () => {
-    if (!ref.current) {
+    if (!outputRef.current) {
       return
     }
 
-    const result = await ref.current.build({
+    const result = await outputRef.current.build({
       entryPoints: ['index.js'],
       bundle: true,
       write: false,
@@ -35,10 +39,21 @@ const JBook: React.FC = () => {
       },
     })
 
-    // console.log(result);
-
-    setCode(result.outputFiles[0].text)
+    // setCode(result.outputFiles[0].text)
+    iframeRef.current.contentWindow.postMessage(result.outputFiles[0].text, '*')
   }
+
+  const html = `
+  <html>
+    <head></head>
+    <body>
+      <div id="root"></div>
+      <script>
+        window.addEventListener('message', (event)=>{
+        eval(event.data)}, false)
+      </script>
+    </body>
+  </html>`
 
   return (
     <section>
@@ -51,6 +66,22 @@ const JBook: React.FC = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
+      <iframe
+        // src="/test.html"
+        // sandbox="allow-same-origin"
+        ref={iframeRef}
+        srcDoc={html}
+        sandbox="allow-scripts"
+        title="test"
+        style={{
+          display: 'block',
+          width: '100%',
+          outline: 'none',
+          border: 'none',
+          borderTop: '1px solid rgba(255, 255, 255, 0.6)',
+          color: '#fff',
+        }}
+      ></iframe>
     </section>
   )
 }
